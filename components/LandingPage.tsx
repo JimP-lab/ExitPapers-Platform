@@ -71,17 +71,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
     console.error('Video loading error:', {
       error: video.error,
       errorCode: video.error?.code,
-      errorMessage: video.error?.message,
       src: video.currentSrc,
       networkState: video.networkState,
       readyState: video.readyState
     });
     setVideoError(true);
-    setIsPlaying(false);
   };
 
-  const handleVideoLoad = () => {
-    console.log('Video loaded successfully');
+  const handleVideoCanPlay = () => {
+    console.log('Video can play - loaded successfully');
     setVideoError(false);
   };
 
@@ -151,7 +149,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
           </button>
         </div>
 
-        {/* Video Preview Section - Laptop Style */}
+        {/* Video Preview Section - Laptop Style with Square Overlay */}
         <div ref={containerRef} className="relative mx-auto max-w-5xl mt-12 scroll-mt-24">
            {/* Ambient Glow */}
            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-emerald-500/10 blur-3xl rounded-full -z-10"></div>
@@ -166,7 +164,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
                   onMouseLeave={() => setShowControls(isPlaying ? false : true)}
                 >
                   {videoError ? (
-                    // Fallback UI when video fails to load
+                    // Fallback UI when video fails
                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 text-white">
                       <div className="text-center p-8">
                         <Shield className="w-16 h-16 mx-auto mb-4 text-emerald-500" />
@@ -189,31 +187,35 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
                       playsInline
                       preload="metadata"
                       onError={handleVideoError}
-                      onLoadedData={handleVideoLoad}
+                      onCanPlay={handleVideoCanPlay}
                     >
-                      {/* FIXED: Added leading slash and multiple source formats for better compatibility */}
-                      <source src="/attachments/ExitPapers-Preview.webm" type="video/webm"/>    
-                      {/* Fallback message for browsers that don't support video tag */}
+                      {/* FIXED: Correct path to video in public folder */}
+                      <source src="/attachments/ExitPapers-Preview.webm" type="video/webm"/>
                       Your browser does not support the video tag.
                     </video>
                   )}
                   
-                  {/* Controls Overlay */}
+                  {/* Square Overlay Button - Outside Style */}
                   {!videoError && (
-                    <button
-                      onClick={togglePlay}
-                      className={`absolute inset-0 flex items-center justify-center bg-black/10 backdrop-blur-[1px] transition-all duration-300 ${showControls || !isPlaying ? 'opacity-100' : 'opacity-0'}`}
-                      aria-label={isPlaying ? "Pause video" : "Play video"}
+                    <div 
+                      className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${showControls || !isPlaying ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                     >
-                      <div className={`
-                        flex items-center justify-center w-16 h-16 md:w-20 md:h-20 
-                        rounded-full bg-slate-900/90 text-white border border-slate-700/50 shadow-2xl
-                        transition-all duration-300 transform
-                        hover:scale-110 hover:bg-emerald-600 hover:border-emerald-500
-                      `}>
-                        {isPlaying ? <Pause className="w-6 h-6 md:w-8 md:h-8 fill-current" /> : <Play className="w-6 h-6 md:w-8 md:h-8 fill-current ml-1" />}
-                      </div>
-                    </button>
+                      {/* Backdrop blur effect */}
+                      <div className="absolute inset-0 bg-black/5"></div>
+                      
+                      {/* Square Play/Pause Button */}
+                      <button
+                        onClick={togglePlay}
+                        className="relative z-10 w-16 h-16 md:w-20 md:h-20 bg-white/95 backdrop-blur-sm rounded-lg border-2 border-slate-200 shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-emerald-600 hover:border-emerald-500 group/btn"
+                        aria-label={isPlaying ? "Pause video" : "Play video"}
+                      >
+                        {isPlaying ? (
+                          <Pause className="w-7 h-7 md:w-9 md:h-9 text-slate-900 group-hover/btn:text-white transition-colors fill-current" />
+                        ) : (
+                          <Play className="w-7 h-7 md:w-9 md:h-9 text-slate-900 group-hover/btn:text-white transition-colors fill-current ml-1" />
+                        )}
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>
@@ -306,7 +308,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
              <span className="font-bold text-lg text-slate-900">ExitPapers</span>
           </div>
           <div className="text-sm text-slate-500">
-            © 2025 ExitPapers Military Systems. All rights reserved. Restricted Access.
+            © 2025 ExitPapers Military Systems. All rights reserved.
           </div>
           <div className="flex gap-6">
             <a href="#" className="text-slate-400 hover:text-slate-900">Privacy</a>
