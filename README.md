@@ -16,3 +16,4 @@ https://exitpapers-878742464512.us-west1.run.app
 - Vite
 - Prompt Engineering
 - GoogleAiStudio
+- Vimeo
