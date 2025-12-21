@@ -3,7 +3,6 @@
 ## 1. Product Overview
 **Product Name:** ExitPapers  
 **Version:** 1.0  
-**Owner:** Δημήτρης Παρασχάκης  
 **Status:** MVP (Minimum Viable Product)  
 **Description:** A military leave management system that digitizes the approval process for base exits. It allows commanders to manage soldier rosters and approvals efficiently while providing soldiers with verifiable digital exit papers.
 

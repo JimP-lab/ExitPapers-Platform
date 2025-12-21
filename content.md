@@ -64,3 +64,7 @@ Currently, data is held in React State (`useState` in `App.tsx`).
 - **Primary Color:** Emerald (`bg-emerald-600`, `text-emerald-600`) representing "Go/Safe/Approved".
 - **Secondary Color:** Slate (`bg-slate-900`) representing "Official/Military/Hardware".
 - **Fonts:** 'Inter' (sans-serif) for UI, 'Serif' (default system serif) for the official document text to mimic print.
+
+## 4. Asset Management
+- **Video:** The preview video is located at `attachments/ExitPapers-Preview.mp4`. Ensure this directory and file exist for the `LandingPage.tsx` to display the video correctly.
+- **Images:** External placeholders (Unsplash) are used for backgrounds. For production, replace with local assets to ensure offline capability.
